@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.example.gabriel.weatherapp.adapters.ForecastListAdapter
 import com.example.gabriel.weatherapp.R
+import org.jetbrains.anko.find
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,7 +24,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val forecasList = findViewById(R.id.forecast_list) as RecyclerView
+        //val forecasList = findViewById(R.id.forecast_list) as RecyclerView
+        //mesma coisa acima utilizando Anko
+        val forecasList : RecyclerView = find(R.id.forecast_list)
         forecasList.layoutManager = LinearLayoutManager(this)
         forecasList.adapter = ForecastListAdapter(items)
     }
