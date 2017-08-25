@@ -7,8 +7,10 @@ import android.support.v7.widget.RecyclerView
 import com.example.gabriel.weatherapp.ui.adapters.ForecastListAdapter
 import com.example.gabriel.weatherapp.R
 import com.example.gabriel.weatherapp.domain.commands.RequestForecastCommand
+import com.example.gabriel.weatherapp.domain.model.Forecast
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
+import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 
 class MainActivity : AppCompatActivity() {
@@ -25,7 +27,12 @@ class MainActivity : AppCompatActivity() {
         doAsync() {
             val result = RequestForecastCommand("94043").execute()
             uiThread {
-                forecasList.adapter = ForecastListAdapter(result)
+                forecasList.adapter = ForecastListAdapter(result,
+                        object : ForecastListAdapter.OnItemClickListener{
+                            override fun invoke(forecast: Forecast) {
+                                toast(forecast.date)
+                            }
+                        })
             }
         }
     }
