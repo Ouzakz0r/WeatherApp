@@ -21,18 +21,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        val forecasList : RecyclerView = find(R.id.forecast_list)
-        forecasList.layoutManager = LinearLayoutManager(this)
+        val forecastList : RecyclerView = find(R.id.forecast_list)
+        forecastList.layoutManager = LinearLayoutManager(this)
 
-        doAsync() {
+        doAsync {
             val result = RequestForecastCommand("94043").execute()
             uiThread {
-                forecasList.adapter = ForecastListAdapter(result,
-                        object : ForecastListAdapter.OnItemClickListener{
-                            override fun invoke(forecast: Forecast) {
-                                toast(forecast.date)
-                            }
-                        })
+                val adapter = ForecastListAdapter(result) { toast(it.date) }
+                forecastList.adapter = adapter
             }
         }
     }
