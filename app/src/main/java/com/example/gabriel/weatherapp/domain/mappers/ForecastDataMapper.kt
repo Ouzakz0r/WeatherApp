@@ -14,9 +14,7 @@ import com.example.gabriel.weatherapp.domain.model.Forecast as ModelForecast
 
 class ForecastDataMapper {
 
-    fun convertFromDataModel(forecast: ForecastResult): ForecastList {
-        return ForecastList(forecast.city.name, forecast.city.country, convertForecastListToDomain(forecast.list))
-    }
+    fun convertFromDataModel(forecast: ForecastResult): ForecastList = ForecastList(forecast.city.name, forecast.city.country, convertForecastListToDomain(forecast.list))
 
     private fun convertForecastListToDomain(list: List<Forecast>): List<ModelForecast> {
         return list.mapIndexed { i, forecast ->
@@ -30,7 +28,7 @@ class ForecastDataMapper {
                 forecast.temp.max.toInt(), forecast.temp.min.toInt(), generateIconUrl(forecast.weather[0].icon))
     }
 
-    private fun generateIconUrl(iconCode: String): String = "http://openweathermap.org/img/w/$iconCode.png"
+    private fun generateIconUrl(iconCode: String) = "http://openweathermap.org/img/w/$iconCode.png"
 
     private fun convertDate(date: Long): String {
         val df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())
