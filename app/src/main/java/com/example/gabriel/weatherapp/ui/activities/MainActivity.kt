@@ -8,6 +8,7 @@ import com.example.gabriel.weatherapp.ui.adapters.ForecastListAdapter
 import com.example.gabriel.weatherapp.R
 import com.example.gabriel.weatherapp.domain.commands.RequestForecastCommand
 import com.example.gabriel.weatherapp.domain.model.Forecast
+import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 import org.jetbrains.anko.toast
@@ -20,15 +21,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-        val forecastList : RecyclerView = find(R.id.forecast_list)
-        forecastList.layoutManager = LinearLayoutManager(this)
+        //não é necessária a declaração pois o Android Extension cuida disso pra vc
+       // val forecastList : RecyclerView = find(R.id.forecast_list)
+        forecastlist.layoutManager = LinearLayoutManager(this)
 
         doAsync {
             val result = RequestForecastCommand("94043").execute()
             uiThread {
                 val adapter = ForecastListAdapter(result) { toast(it.date) }
-                forecastList.adapter = adapter
+                forecastlist.adapter = adapter
             }
         }
     }

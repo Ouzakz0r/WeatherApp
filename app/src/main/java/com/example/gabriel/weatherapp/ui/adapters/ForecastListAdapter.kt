@@ -11,6 +11,7 @@ import com.example.gabriel.weatherapp.domain.model.Forecast
 import com.example.gabriel.weatherapp.domain.model.ForecastList
 import com.example.gabriel.weatherapp.ui.utils.ctx
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.item_forecast.view.*
 import org.jetbrains.anko.find
 
 /**
@@ -35,20 +36,26 @@ class ForecastListAdapter(val weekForecast: ForecastList,
     class ViewHolder(view: View,
                      val itemClick: (Forecast) -> Unit) : RecyclerView.ViewHolder(view) {
 
-        private val iconView = view.find<ImageView>(R.id.icon)
-        private val dateView = view.find<TextView>(R.id.date)
-        private val descriptionView = view.find<TextView>(R.id.description)
-        private val maxTemperatureView = view.find<TextView>(R.id.maxTemperature)
-        private val minTemperatureView = view.find<TextView>(R.id.minTemperature)
+        //Tudo que está comentado foi possível enxugar graças ao Android Extensions
+       // private val iconView = view.find<ImageView>(R.id.icon)
+       // private val dateView = view.find<TextView>(R.id.date)
+       // private val descriptionView = view.find<TextView>(R.id.description)
+       // private val maxTemperatureView = view.find<TextView>(R.id.maxTemperature)
+       // private val minTemperatureView = view.find<TextView>(R.id.minTemperature)
 
         fun bindForecast(forecast: Forecast) {
             with(forecast) {
-                Picasso.with(itemView.ctx).load(iconUrl).into(iconView)
-                dateView.text = date
-                descriptionView.text = description
-                maxTemperatureView.text = "${high}º"
-                minTemperatureView.text = "${low}º"
+                Picasso.with(itemView.ctx).load(iconUrl).into(itemView.icon)
+                itemView.date.text = date
+                itemView.description.text = description
+                itemView.maxTemperature.text = "$high"
+                itemView.minTemperature.text = "$low"
                 itemView.setOnClickListener { itemClick(this) }
+                //dateView.text = date
+                //descriptionView.text = description
+                //maxTemperatureView.text = "${high}º"
+                //minTemperatureView.text = "${low}º"
+
             }
         }
     }
